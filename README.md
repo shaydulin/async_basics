@@ -22,7 +22,7 @@ When some is readable select() return list of them. And we can read that sockets
 ### 3. Async with callbacks.
 
 Program uses higher level "selectors" interface to monitor files. A server socket is created and registered.
-When it is readable, a client socket is created and registered. event_loop() iterates and calls appropriate functions.
+When it is readable, a client socket is created and registered. event_loop() iterates files and calls appropriate functions.
 
 - run 3_async_with_callbacks/callbacks.py
 - run nc 127.0.0.1 5000 in as many terminals as You want
