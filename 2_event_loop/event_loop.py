@@ -11,7 +11,7 @@ server_socket.listen()
 TO_MONITOR.append(server_socket)
 
 
-def accept_connection(server_socket):
+def accept_connection(server_socket: socket.socket):
     client_socket, addr = server_socket.accept()
     print("Connection from: ", addr)
     TO_MONITOR.append(client_socket)

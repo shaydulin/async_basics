@@ -1,29 +1,31 @@
-# async_basics
+### 1. Intro
 
-### 1. Intro.
+This program is a simple synchronous web server.
 
-This program is simple sync web server.
+- Run `1_intro/original.py`.
+- In multiple terminals, run `nc 127.0.0.1 5000`.
+- Observe: Type something in any terminal, and the server only responds in one terminal.
 
-- run 1_intro/original.py
-- run nc 127.0.0.1 5000 in second terminal
-- run nc 127.0.0.1 5000 in third terminal
-- see: write something in second and third terminals, server responds in second but no response in third terminal
+### 2. Event Loop
 
-### 2. Event loop.
+The program uses the `select()` function to monitor a list of files (sockets, in this case) that are ready for reading, writing, or have errors. When some are ready to be read, `select()` returns a list of them, and we can then read from those sockets.
 
-Program uses select() function to monitor list of files (sockets in this case) that are ready to read (but also to write and list of files with errors).
+- Run `2_event_loop/event_loop.py`.
+- In multiple terminals, run `nc 127.0.0.1 5000`.
+- Observe: Type something in any terminal, and the server responds instantly.
 
-When some is readable select() return list of them. And we can read that sockets.
+### 3. Async with Callbacks
 
-- run 2_event_loop/event_loop.py
-- run nc 127.0.0.1 5000 in as many terminals as You want
-- see: write something in any terminal, server responds instantly
+The program uses the higher-level `selectors` interface to monitor files. A server socket is created and registered. When it is ready for reading, a client socket is created and registered. The `event_loop()` iterates over the files and calls the appropriate functions.
 
-### 3. Async with callbacks.
+- Run `3_async_with_callbacks/callbacks.py`.
+- In multiple terminals, run `nc 127.0.0.1 5000`.
+- Observe: Type something in any terminal, and the server responds instantly.
 
-Program uses higher level "selectors" interface to monitor files. A server socket is created and registered.
-When it is readable, a client socket is created and registered. event_loop() iterates files and calls appropriate functions.
+### 4. Async with Generators
 
-- run 3_async_with_callbacks/callbacks.py
-- run nc 127.0.0.1 5000 in as many terminals as You want
-- see: write something in any terminal, server responds instantly
+Using generators allows the function to yield control back to the event loop. Both `server()` and `client()` are generator functions. The `yield` keyword is used to yield a socket, which will then be added to the appropriate list of sockets (`TO_READ` or `TO_WRITE`). These lists are passed to the `select()` function, which returns sockets that are ready for reading or writing.
+
+- Run `4_generators/generators.py`.
+- In multiple terminals, run `nc 127.0.0.1 5000`.
+- Observe: Type something in any terminal, and the server responds instantly.
