@@ -29,3 +29,27 @@ Using generators allows the function to yield control back to the event loop. Bo
 - Run `4_generators/generators.py`.
 - In multiple terminals, run `nc 127.0.0.1 5000`.
 - Observe: Type something in any terminal, and the server responds instantly.
+
+### 5. Coroutines
+
+#### `5_coroutines/coroutines.py`
+
+Using `yield` allows not only yielding values from the generator but also sending values to the generator. A generator that utilizes this capability is called a `coroutine`.
+
+- Run `5_coroutines/coroutines.py` in interactive mode.
+- Use `getgeneratorstate` to inspect `gen_`. Initially, its state is `GEN_CREATED`. To initialize it, use `gen_.send(None)` or `next(gen_)`. The coroutine's state will now be `GEN_SUSPENDED`.
+- Type, for example, `gen_.send("example")`. You will see `Gen received: example`, indicating that the coroutine has received the value `"example"`.
+- The coroutine's state is now `GEN_CLOSED` as there is nothing left to yield.
+- You can also throw exceptions in a coroutine using the `throw` method.
+
+- The `coroutine` decorator is used to avoid extra work and initialize the coroutine.
+- `avg` is a more complex coroutine that calculates the average value of the received integer numbers online. Send numbers one by one and get the average value in response.
+
+#### `5_coroutines/delegation.py`
+
+It is possible to place a coroutine inside another coroutine. `yield from` is used to yield values from the inner coroutine (or from any iterable).
+
+- Run `5_coroutines/delegation.py` in interactive mode.
+- Send messages to `g`, which will forward them to `sg`.
+- `yield from` also propagates exceptions to the inner coroutine if an exception is thrown to the outer one.
+- Generators can not only yield values but also return values. `yield from` returns this value as well.
