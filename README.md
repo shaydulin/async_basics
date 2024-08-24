@@ -1,3 +1,5 @@
+Source - [Асинхронность в Python](https://www.youtube.com/playlist?list=PLlWXhlUMyooawilqK4lPXRvxtbYiw34S8)
+
 ### 1. Intro
 
 This program is a simple synchronous web server.
@@ -53,3 +55,20 @@ It is possible to place a coroutine inside another coroutine. `yield from` is us
 - Send messages to `g`, which will forward them to `sg`.
 - `yield from` also propagates exceptions to the inner coroutine if an exception is thrown to the outer one.
 - Generators can not only yield values but also return values. `yield from` returns this value as well.
+
+### 6. asyncio, async/await
+
+#### `6_asyncio_async_await/asyncio_async_await.py`
+
+This basic program demonstrates asynchronous printing using the `async/await` syntax with two coroutines.
+
+- Run `6_asyncio_async_await/asyncio_async_await.py`.
+- Two functions run asynchronously: one prints numbers and the other prints elapsed time.
+
+#### `6_asyncio_async_await/async_image_downloader.py`
+
+This program compares the speed of synchronous and asynchronous image downloading from the Internet. Since the request-response phase is I/O-bound, the difference in performance is significant.
+
+- You need the `aiohttp` and `requests` libraries. Install them using `pip install aiohttp==3.10.5 requests==2.32.3`.
+- Run `6_asyncio_async_await/async_image_downloader.py`.
+- Observe the difference in speed between the synchronous and asynchronous approaches.
